@@ -13,6 +13,19 @@ listen for D-Bus signals, and keep the screen synced to the player.
 It also allows you to pause the stream, skip to the next track,
 and adjust the volume from your desktop.
 
+About this Fork
+-------
+
+This fork is mainly about porting it to Gtk3 but also has some
+rewrites including the followings:
+
+* Ported to Gtk3
+* Automatically Hide/Show window in case it detects disconnected or connected device
+* Able to skip to next but also to previous track
+* Fix for not recognizing a bluetooth speeker as a player and not starting because multiple transport ifaces
+
+![Screenshot](https://github.com/pijulius/bluetunes/blob/main/screenshot.png?raw=true)
+
 Caveats
 -------
 
