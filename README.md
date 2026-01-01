@@ -22,7 +22,7 @@ rewrites including the followings:
 * Ported to Gtk3
 * Automatically Hide/Show window in case it detects disconnected or connected device
 * Able to skip to next but also to previous track
-* Fix for not recognizing a bluetooth speeker as a player and not starting because multiple transport ifaces
+* Fix for not recognizing a bluetooth speaker as a player and not starting because multiple transport ifaces
 
 ![Screenshot](https://github.com/pijulius/bluetunes/blob/main/screenshot.png?raw=true)
 
