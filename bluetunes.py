@@ -48,8 +48,19 @@ CSS = """
     grid {
         padding: 5px 10px 5px 10px;
     }
+    button {
+        border-radius: 0;
+    }
+    window grid label,
     #playButton {
         padding: 1px 10px;
+        margin: 0 -2px;
+    }
+    #prevButton {
+        border-radius: 10px 0 0 10px;
+    }
+    #nextButton {
+        border-radius: 0 10px 10px 0;
     }
     """
 
@@ -226,6 +237,8 @@ class BlueTunes(Gtk.Window):
 
         self.playImg = Gtk.Image.new_from_icon_name("media-playback-start-symbolic", Gtk.IconSize.BUTTON)
         self.pauseImg = Gtk.Image.new_from_icon_name("media-playback-pause-symbolic", Gtk.IconSize.BUTTON)
+        self.btActiveImg = Gtk.Image.new_from_icon_name("bluetooth-active-symbolic", Gtk.IconSize.BUTTON)
+        self.btAcquiringImg = Gtk.Image.new_from_icon_name("bluetooth-acquiring-symbolic", Gtk.IconSize.BUTTON)
 
         playPauseBox = Gtk.Box()
         playPauseBox.set_halign(Gtk.Align.CENTER)
@@ -243,6 +256,7 @@ class BlueTunes(Gtk.Window):
         self.trackLabel.set_halign(Gtk.Align.START)
 
         self.prevBtn = Gtk.Button()
+        self.prevBtn.set_name("prevButton")
         self.prevBtn.set_image(prevImg)
         self.prevBtn.connect("clicked", self.prev)
 
@@ -252,9 +266,12 @@ class BlueTunes(Gtk.Window):
         self.playBtn.connect("clicked", self.play)
 
         self.nextBtn = Gtk.Button()
+        self.nextBtn.set_name("nextButton")
         self.nextBtn.set_image(nextImg)
         self.nextBtn.connect("clicked", self.next)
 
+        grid.add(self.btAcquiringImg);
+        grid.add(self.btActiveImg);
         grid.add(self.loadingLabel)
         grid.add(self.trackLabel)
         grid.add(self.prevBtn)
@@ -266,6 +283,7 @@ class BlueTunes(Gtk.Window):
 
         self.loading()
         self.pauseImg.hide()
+        self.btActiveImg.hide()
 
     def setTrack(self, props):
         title = props["Title"] if "Title" in props else None
@@ -292,6 +310,8 @@ class BlueTunes(Gtk.Window):
 
         self.loadingLabel.hide()
         self.trackLabel.show()
+        self.btAcquiringImg.hide()
+        self.btActiveImg.show();
 
     def loading(self):
         self.prevBtn.set_sensitive(False)
@@ -300,6 +320,8 @@ class BlueTunes(Gtk.Window):
 
         self.trackLabel.hide()
         self.loadingLabel.show()
+        self.btActiveImg.hide();
+        self.btAcquiringImg.show()
 
     def play(self, window):
         status = mediaPlayer.Get(MEDIA_PLAYER_IFACE, "Status", dbus_interface=DBUS_PROP_IFACE)
